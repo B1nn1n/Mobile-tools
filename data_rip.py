@@ -13,8 +13,8 @@ print "        \/     \/          \/          \/   |__|   |__|        \/       "
 # Function to copy the directories from the /data/data/package/ to the sdcard so it can be pulled to the local computer.
 # Made this a function just in case we want to limit the directories, eg. we know files is useless we could not pull that one.
 def copyImportantDirectories(dstDir, packageName):
-	cmd = 'adb shell su -c ' + '"cp -r ' + '/data/data/' + packageName + '/ ' + '/sdcard/ews/"'
-	print 'Copying databases directory into /sdcard/ews/'
+	cmd = 'adb shell su -c ' + '"cp -r ' + '/data/data/' + packageName + '/ ' + '/sdcard/b1nn1n/"'
+	print 'Copying databases directory into /sdcard/b1nn1n/'
 	print cmd
 	sp = subprocess.check_output(cmd.split())
 	results_of_create = sp.split('\r\n')
@@ -24,7 +24,7 @@ def copyImportantDirectories(dstDir, packageName):
 # Create the temporary directory to hold the data from the /data/data/package/ directories.
 def createDirectory(path, newDir):
 	cmd = 'adb shell su -c ' + '"mkdir ' + path + newDir + '"'
-	print 'Creating directory in /sdcard/ews/' + newDir
+	print 'Creating directory in /sdcard/b1nn1n/' + newDir
 	sp = subprocess.check_output(cmd.split())
 	results_of_create = sp.split('\r\n')
 	print results_of_create
@@ -39,7 +39,7 @@ def pullData(packageName):
 # Clean up the /sdcard/ directory by removing our temporary directory.
 def cleanUp(holdingDir):
 	cmd = 'adb shell su -c "rm -r ' + holdingDir +' "'
-	print 'Deleting all ews holding directory'
+	print 'Deleting all b1nn1n holding directory'
 	sp = subprocess.check_output(cmd.split())
 	results_of_delete = sp.split('\r\n')
 	print results_of_delete
@@ -80,19 +80,19 @@ sp3 = subprocess.check_output(cmd3.split())
 results_of_shell = sp3.split('\r\n')
 print results_of_shell
 
-#create a directory in /sdcard/ews to store all the data
+#create a directory in /sdcard/b1nn1n to store all the data
 package_name = results_wo_package[1]
-createDirectory('/sdcard/', 'ews') 
-createDirectory('sdcard/ews/', package_name)
+createDirectory('/sdcard/', 'b1nn1n') 
+createDirectory('sdcard/b1nn1n/', package_name)
 
-#Get all the data from the /data/data/package directory into the /sdcard/ews/ directory so it can be pulled
-copyImportantDirectories('/sdcard/ews/', package_name)
+#Get all the data from the /data/data/package directory into the /sdcard/b1nn1n/ directory so it can be pulled
+copyImportantDirectories('/sdcard/b1nn1n/', package_name)
 
-#Pull the data from /sdcard/ews/
-pullData('/sdcard/ews')
+#Pull the data from /sdcard/b1nn1n/
+pullData('/sdcard/b1nn1n')
 
-#Clean up the ews under /sdcard/
-cleanUp('/sdcard/ews')
+#Clean up the b1nn1n under /sdcard/
+cleanUp('/sdcard/b1nn1n')
 
 
 
